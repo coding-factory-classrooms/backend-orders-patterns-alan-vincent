@@ -6,6 +6,8 @@ import org.example.Controller.ManagerController;
 import org.example.core.Conf;
 import org.example.core.Template;
 import org.example.middlewares.LoggerMiddleware;
+import org.example.models.CommandCenter;
+import org.example.models.CommandHistory;
 import spark.Spark;
 
 import java.util.HashMap;
@@ -14,8 +16,11 @@ public class App {
     public static void main(String[] args) {
         initialize();
 
+        CommandHistory history = new CommandHistory();
+        CommandCenter commandCenter = new CommandCenter(history);
+
         HomeController homeController = new HomeController();
-        CommandController commandController = new CommandController();
+        CommandController commandController = new CommandController(commandCenter, history);
         ManagerController managerController = new ManagerController();
 
         Spark.get("/", (req, res) -> homeController.home(req,res));
