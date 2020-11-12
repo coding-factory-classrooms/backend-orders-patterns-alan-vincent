@@ -18,8 +18,31 @@ classDiagram
     - descriptions: String
     - quantity: int
   }
+  class CommandCenter{
+    - commandsUers: List<commandUser>
+    - history: CommandHistory
+  }
+  class Command{
+    <<abstract>>
+    +execute()
+  }
+  class CommandHistory{
+  }
+  class CommandUndo{
+  }
+  class CommandRedo{
+  }
 
 Foodtray o-- Food
+
 CommandUser o-- Foodtray
-CommandUser -- CommandState
+CommandUser -- CommandUserState
+
+CommandCenter o-- CommandUser
+CommandCenter o-- CommandUndo
+CommandCenter o-- CommandRedo
+CommandCenter o-- CommandHistory
+
+Command <|-- CommandUndo
+Command <|-- CommandRedo
 

@@ -7,11 +7,11 @@ import java.util.Stack;
 public class CommandCenter {
 
     private final List<CommandUser> commandUsers;
-    private final Stack<CommandCenter> history;
+    private final CommandHistory history;
 
-    public CommandCenter() {
+    public CommandCenter(CommandHistory history) {
         this.commandUsers = new ArrayList<>();
-        this.history = new Stack<>();
+        this.history = history;
     }
 
     public List<CommandUser> getCommands() {
@@ -20,5 +20,6 @@ public class CommandCenter {
 
     public void createCommand(CommandUser command){
         this.commandUsers.add(command);
+        history.push(this);
     }
 }
