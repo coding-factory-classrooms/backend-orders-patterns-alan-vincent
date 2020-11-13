@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommandHistory {
-    private final List<OrdersManage> history = new ArrayList<>();
+    private List<OrdersManage> history = new ArrayList<>();
     private int currentIndex;
 
     public CommandHistory() {
@@ -16,8 +16,15 @@ public class CommandHistory {
     }
 
     public void push(OrdersManage command){
+        if(history.size() == currentIndex){
+            currentIndex+=1;
+        }else{
+            currentIndex = history.size();
+            history = history.subList(0,currentIndex-1);
+        }
+        System.out.println(history);
         history.add(command);
-        currentIndex+=1;
+
     }
 
     public int getCurrentIndex() {

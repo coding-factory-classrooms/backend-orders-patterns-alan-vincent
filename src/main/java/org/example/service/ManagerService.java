@@ -7,7 +7,7 @@ public class ManagerService {
 
     public boolean updateOrder(OrdersManage ordersManage, String id, String newState){
         try{
-            Order order = ordersManage.getCommands().get(Integer.parseInt(id));
+            Order order = ordersManage.getOrders().get(Integer.parseInt(id));
             switch (newState){
                 case "NEW":
                     order.setStatus(Order.OrderState.NEW);
@@ -31,17 +31,14 @@ public class ManagerService {
     }
 
     public void updateHistoryOrders(OrdersManage ordersManage, String action){
-        if(action.contentEquals("undo") || action.contentEquals("redo")){
-
             if(action.contentEquals("undo")
                     && ordersManage.history.getCurrentIndex() > 1
                     && ordersManage.history.getCurrentIndex() <=  ordersManage.history.getHistory().size())
 
                 ordersManage.undo();
-            else if(ordersManage.history.getCurrentIndex() >= 1 && ordersManage.history.getCurrentIndex() <=  ordersManage.history.getHistory().size()){
+            else if(action.contentEquals("redo") && ordersManage.history.getCurrentIndex() >= 1 && ordersManage.history.getCurrentIndex() <=  ordersManage.history.getHistory().size()){
                 ordersManage.redo();
             }
-        }
         return;
     }
 }

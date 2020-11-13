@@ -11,11 +11,8 @@ public class CommandUndo extends Command {
         try{
             int index = ordersManage.history.getCurrentIndex() -1;
             OrdersManage ordersManageRedo = (OrdersManage)ordersManage.history.getHistory().get(index-1).clone();
-            ordersManage.getCommands().clear();
-            System.out.println("Clear "+ordersManage);
-            System.out.println("Clone "+ordersManageRedo);
-            ordersManage.setCommands(ordersManageRedo.getCommands());
-            System.out.println("After set clone "+ordersManage);
+            ordersManage.getOrders().clear();
+            ordersManage.setOrders(ordersManageRedo.getOrders());
             ordersManage.history.setCurrentIndex(index);
         }catch (Exception e){
             return false;

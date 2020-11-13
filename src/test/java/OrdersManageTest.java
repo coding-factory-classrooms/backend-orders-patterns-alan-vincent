@@ -25,9 +25,9 @@ public class OrdersManageTest {
         menu.addFoodtrays(foodtray);
         order.setOrderedMenu(menu);
 
-        ordersManage.createCommand(order);
+        ordersManage.createOrder(order);
 
-        Assert.assertEquals(ordersManage.getCommands().size(), 1);
+        Assert.assertEquals(ordersManage.getOrders().size(), 1);
     }
 
     @Test
@@ -40,7 +40,7 @@ public class OrdersManageTest {
         foodtray.addFoods(new Food("Tempura", 2));
         menu.addFoodtrays(foodtray);
         order.setOrderedMenu(menu);
-        ordersManage.createCommand(order);
+        ordersManage.createOrder(order);
         Assert.assertEquals(history.getHistory().size(), 1);
     }
 
@@ -56,10 +56,10 @@ public class OrdersManageTest {
         foodtray.addFoods(new Food("Tempura", 2));
         menu.addFoodtrays(foodtray);
         order.setOrderedMenu(menu);
-        ordersManage.createCommand(order);
+        ordersManage.createOrder(order);
 
         Order cloneOrder = (Order) order.clone();
-        Order updateOrder = ordersManage.getCommands().get(0);
+        Order updateOrder = ordersManage.getOrders().get(0);
         updateOrder.setStatus(Order.OrderState.IN_PROGRESS);
 
         Assert.assertNotEquals(cloneOrder.getStatus(), updateOrder.getStatus());
@@ -75,10 +75,10 @@ public class OrdersManageTest {
         foodtray.addFoods(new Food("Tempura", 2));
         menu.addFoodtrays(foodtray);
         order.setOrderedMenu(menu);
-        ordersManage.createCommand(order);
+        ordersManage.createOrder(order);
 
         ordersManage.undo();
-        Assert.assertTrue(ordersManage.getCommands().isEmpty());
+        Assert.assertTrue(ordersManage.getOrders().isEmpty());
     }
 
     @Test
@@ -92,11 +92,11 @@ public class OrdersManageTest {
         foodtray.addFoods(new Food("Tempura", 2));
         menu.addFoodtrays(foodtray);
         order.setOrderedMenu(menu);
-        ordersManage.createCommand(order);
+        ordersManage.createOrder(order);
 
         ordersManage.undo();
         ordersManage.redo();
-        Assert.assertFalse(ordersManage.getCommands().isEmpty());
+        Assert.assertFalse(ordersManage.getOrders().isEmpty());
     }
 
 }

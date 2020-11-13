@@ -11,9 +11,9 @@ public class CommandRedo extends Command{
         try{
             int index = ordersManage.history.getCurrentIndex() -1;
             OrdersManage ordersManageRedo = (OrdersManage) ordersManage.history.getHistory().get(index+1).clone();
-            ordersManage.getCommands().clear();
+            ordersManage.getOrders().clear();
 
-            ordersManage.setCommands(ordersManageRedo.getCommands());
+            ordersManage.setOrders(ordersManageRedo.getOrders());
             ordersManage.history.setCurrentIndex( ordersManage.history.getCurrentIndex() + 1);
         }catch (Exception e){
             return false;

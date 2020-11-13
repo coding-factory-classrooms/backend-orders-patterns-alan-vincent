@@ -1,9 +1,5 @@
 package org.example.models;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
 public class Order implements Cloneable {
     public enum OrderState {
         NEW,
@@ -12,13 +8,13 @@ public class Order implements Cloneable {
         CANCELLED
     }
 
-    public interface handleStateChange {
+    public interface HandleStateChange {
         void onOrderStateChange(Order order);
     }
 
     private OrderState status;
     private Menu orderdMenu;
-    private handleStateChange handleStateChange;
+    private HandleStateChange handleStateChange;
 
     public Order() {
         this.status = OrderState.NEW;
@@ -43,7 +39,7 @@ public class Order implements Cloneable {
         this.orderdMenu = commandFoods;
     }
 
-    public void setHandleStateChange(Order.handleStateChange handleStateChange) {
+    public void setHandleStateChange(HandleStateChange handleStateChange) {
         this.handleStateChange = handleStateChange;
     }
 
@@ -67,6 +63,6 @@ public class Order implements Cloneable {
             menuString+="{"+index+","+foodtray.getDescription()+","+foodtray.toString()+"}";
             index+=1;
         }
-        return "("+menuString+","+getStatus()+")";
+        return "("+orderdMenu.getTitle()+","+menuString+","+getStatus()+")";
     }
 }

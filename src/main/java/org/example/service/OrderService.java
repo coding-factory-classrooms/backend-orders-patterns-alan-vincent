@@ -12,6 +12,6 @@ public class OrderService {
         Menu menu = Data.getData().stream().filter(_menu -> _menu.getTitle().contentEquals(menuChoose)).collect(Collectors.toList()).get(0);
         Order newOrder = new Order();
         newOrder.setOrderedMenu(menu);
-        ordersManage.createCommand(newOrder);
+        ordersManage.createOrder(newOrder);
     }
 }

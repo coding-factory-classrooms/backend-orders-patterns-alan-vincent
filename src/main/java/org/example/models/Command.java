@@ -7,13 +7,5 @@ public abstract class Command {
         this.ordersManage = ordersManage;
     }
 
-    public void undo(){
-
-    }
-
-    public void redo(){
-
-    }
-
     public abstract boolean execute();
 }

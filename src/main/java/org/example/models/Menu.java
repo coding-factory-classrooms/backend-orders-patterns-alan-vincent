@@ -20,10 +20,6 @@ public class Menu implements Cloneable {
         return foodtrays;
     }
 
-    public void setFoodtrays(List<Foodtray> foodrays) {
-        this.foodtrays = foodtrays;
-    }
-
     public void addFoodtrays(Foodtray foodtray) {
         this.foodtrays.add(foodtray);
     }

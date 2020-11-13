@@ -12,24 +12,19 @@ import java.util.Map;
 
 public class ManagerController {
     private OrdersManage ordersManage;
-    private CommandHistory commandHistory;
+    private CommandHistory commandHistory; //TODO : retirer
 
     public ManagerController(OrdersManage ordersManage, CommandHistory commandHistory) {
         this.ordersManage = ordersManage;
-        this.commandHistory = commandHistory;
+        this.commandHistory = commandHistory; //TODO : retirer
     }
 
     public String manageOrderCommand(Request req, Response res){
         Map<String, Object> model = new HashMap<>();
-        model.put("orderUsers", ordersManage.getCommands());
+        model.put("orderUsers", ordersManage.getOrders());
         model.put("history", commandHistory.getHistory());
         model.put("currentHistory", commandHistory.getCurrentIndex());
         return Template.render("command_manager.html",model);
-    }
-
-    public String manageOneCommand(Request req, Response res){
-        Map<String, Object> model = new HashMap<>();
-        return Template.render("command_updater.html",model);
     }
 
     public String updateCommand(Request req, Response res){

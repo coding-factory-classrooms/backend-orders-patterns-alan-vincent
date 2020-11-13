@@ -31,7 +31,7 @@ public class OrderController {
         }
         OrderService orderService = new OrderService();
         orderService.createNewOrder(ordersManage, req.body());
-        int id = ordersManage.getCommands().size()-1;
+        int id = ordersManage.getOrders().size()-1;
         res.status(200);
         return Integer.toString(id);
     }
@@ -39,7 +39,7 @@ public class OrderController {
     public String viewOrder(Request req, Response res){
         String id = req.params(":id");
         try {
-            Order order = ordersManage.getCommands().get(Integer.parseInt(id));
+            Order order = ordersManage.getOrders().get(Integer.parseInt(id));
             Map<String, Object> model = new HashMap<>();
             model.put("id", id);
             model.put("order",order);

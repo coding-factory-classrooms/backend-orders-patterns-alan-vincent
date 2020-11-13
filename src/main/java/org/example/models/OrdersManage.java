@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class OrdersManage implements Order.handleStateChange, Cloneable {
+public class OrdersManage implements Order.HandleStateChange, Cloneable {
 
     private List<Order> orders;
     public CommandHistory history;
@@ -14,17 +14,17 @@ public class OrdersManage implements Order.handleStateChange, Cloneable {
         this.history = history;
     }
 
-    public List<Order> getCommands() {
+    public List<Order> getOrders() {
         return orders;
     }
 
-    public void createCommand(Order newOrder) {
+    public void createOrder(Order newOrder) {
         orders.add(newOrder);
         newOrder.setHandleStateChange(this);
         history.push((OrdersManage) this.clone());
     }
 
-    protected void setCommands(List<Order> newOrders){
+    protected void setOrders(List<Order> newOrders){
         this.orders = newOrders;
     }
 
@@ -38,7 +38,7 @@ public class OrdersManage implements Order.handleStateChange, Cloneable {
             return null;
         }
         List<Order> clonedOrderList = (List) this.orders.stream().map(order -> order.clone()).collect(Collectors.toList());
-        ordersManage.setCommands(clonedOrderList);
+        ordersManage.setOrders(clonedOrderList);
         return  ordersManage;
     }
 
@@ -65,7 +65,7 @@ public class OrdersManage implements Order.handleStateChange, Cloneable {
         String ordersString = "";
         int index = 0;
         for(Order order : orders){
-            ordersString+="{"+index+","+order.getStatus()+","+order.toString()+"}";
+            ordersString+="{"+index+","+order.toString()+"}";
             index+=1;
         }
         return "("+ordersString+")";

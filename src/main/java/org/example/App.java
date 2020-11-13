@@ -24,10 +24,12 @@ public class App {
 
         Spark.get("/", (req, res) -> homeController.home(req,res));
 
+        // Route Users
         Spark.get("/order", (req, res) -> orderController.chooseMenuCommand(req,res));
         Spark.post("/order", (req, res) -> orderController.createOrder(req,res));
         Spark.get("/order/:id", (req, res) -> orderController.viewOrder(req,res));
 
+        // Route Employee
         Spark.get("/manage", (req, res) -> managerController.manageOrderCommand(req,res));
         Spark.get("/manage/history", (req, res) -> managerController.updateHistory(req,res));
         Spark.get("/manage/update/:id", (req, res) -> managerController.updateCommand(req,res));
