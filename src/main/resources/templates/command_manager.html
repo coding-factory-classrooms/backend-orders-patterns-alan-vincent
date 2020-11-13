@@ -19,7 +19,7 @@
             <td>$order.toString()</td>
             <td>$order.getStatus()</td>
             <td>
-                <select id="update_status" name="$velocityCount">
+                <select class="update_status" name="$velocityCount">
                     #if ($order.getStatus() == "NEW")
                     <option selected value="NEW">NEW</option>
                     #else
@@ -81,7 +81,12 @@
     </tbody>
 </table>
 <script>
-    document.getElementById("update_status").addEventListener("change",update_status_order)
+    const documents = document.getElementsByClassName("update_status")
+    for(let doc of documents){
+        console.log(doc)
+        doc.addEventListener("change",update_status_order);
+    }
+
     function update_status_order(e){
         const id = parseInt(e.target.getAttribute("name"))-1
         const newValue = e.target.value
