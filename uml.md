@@ -1,32 +1,53 @@
 classDiagram
-  class CommandUserState{
+  class OrderState{
     <<enumeration>>
     NEW
     IN_PROGRESS
     FINISH
     CANCELED
   }
-  class CommandUser{
-    - foodtray: List<Foodtray>
-    - state: CommandUserState
+  class HandleStateChange{
+    <<interface>>
+    - onOrderStateChange(order)
+  }
+  class Order{
+    - oredredMenu: Menu
+    - state: OrderState
+    - handleStateChange: HandleStateChange
+    - clone()
+  }
+  class Menu{
+    - title: String
+    - foodtrays: List<Foodtray>
+    - clone()
   }
   class Foodtray{
     - foods: List<Food>
     - description: String
+    - clone()
   }
   class Food{
     - descriptions: String
     - quantity: int
+    - clone()
   }
-  class CommandCenter{
+  class OrdersManage{
     - commandsUers: List<commandUser>
     - history: CommandHistory
+    - undo()
+    - redo()
+    - clone()
+    - onOrderStateChange(order)
   }
   class Command{
     <<abstract>>
     +execute()
   }
   class CommandHistory{
+    - history: List<OrdersManage>
+    - currentIndex: int
+    - push(orderCommand)
+    - getHistory() List<OrdersManage>
   }
   class CommandUndo{
   }
@@ -34,15 +55,17 @@ classDiagram
   }
 
 Foodtray o-- Food
+Menu o-- Foodtray
+Order o-- Menu
+Order -- OrderState
 
-CommandUser o-- Foodtray
-CommandUser -- CommandUserState
-
-CommandCenter o-- CommandUser
-CommandCenter o-- CommandUndo
-CommandCenter o-- CommandRedo
-CommandCenter o-- CommandHistory
+OrdersManage o-- Order
+OrdersManage o-- CommandUndo
+OrdersManage o-- CommandRedo
+OrdersManage o-- CommandHistory
 
 Command <|-- CommandUndo
 Command <|-- CommandRedo
 
+Order <|-- HandleStateChange
+OrdersManage *-- HandleStateChange
