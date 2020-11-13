@@ -12,11 +12,15 @@ public class CommandUser {
         CANCELLED
     }
 
+    public interface handleStateChange {
+        void onOrderStateChange(CommandUser commandUser);
+    }
+
     private CommandState status;
-    private List<Foodtray> commandFoods;
+    private Menu orderdMenu;
+    private handleStateChange handleStateChange;
 
     public CommandUser() {
-        this.commandFoods = new ArrayList<>();
         this.status = CommandState.NEW;
     }
 
@@ -26,19 +30,20 @@ public class CommandUser {
 
     public void setStatus(CommandState status) {
         this.status = status;
+        if(handleStateChange != null){
+            handleStateChange.onOrderStateChange(this);
+        }
     }
 
-    public List<Foodtray> getCommandFoods() {
-        return commandFoods;
+    public Menu getOrderedMenu() {
+        return orderdMenu;
     }
 
-    public void setCommandFoods(List<Foodtray> commandFoods) {
-        this.commandFoods = commandFoods;
+    public void setOrderedMenu(Menu commandFoods) {
+        this.orderdMenu = commandFoods;
     }
 
-    public void addCommandFoods(Foodtray foodtray) {
-        this.commandFoods.add(foodtray);
+    public void setHandleStateChange(CommandUser.handleStateChange handleStateChange) {
+        this.handleStateChange = handleStateChange;
     }
-
-
 }

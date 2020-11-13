@@ -18,12 +18,13 @@ public class CommandCenterTest {
     @Test
     public void createNewCommand(){
         CommandUser commandUser = new CommandUser();
-        Foodtray foodtray = new Foodtray();
-        foodtray.setDescription("Basic plateau");
+        Menu menu = new Menu("Test");
+        Foodtray foodtray = new Foodtray("Basic plateau");
         foodtray.addFoods(new Food("Maki", 5));
         foodtray.addFoods(new Food("Sushi", 4));
         foodtray.addFoods(new Food("Tempura", 2));
-        commandUser.addCommandFoods(foodtray);
+        menu.addFoodtrays(foodtray);
+        commandUser.setOrderedMenu(menu);
 
         commandCenter.createCommand(commandUser);
 
@@ -33,12 +34,13 @@ public class CommandCenterTest {
     @Test
     public void historyHasNewCommand(){
         CommandUser commandUser = new CommandUser();
-        Foodtray foodtray = new Foodtray();
-        foodtray.setDescription("Basic plateau");
+        Menu menu = new Menu("Test");
+        Foodtray foodtray = new Foodtray("Basic plateau");
         foodtray.addFoods(new Food("Maki", 5));
         foodtray.addFoods(new Food("Sushi", 4));
         foodtray.addFoods(new Food("Tempura", 2));
-        commandUser.addCommandFoods(foodtray);
+        menu.addFoodtrays(foodtray);
+        commandUser.setOrderedMenu(menu);
         commandCenter.createCommand(commandUser);
         Assert.assertEquals(history.getHistory().size(), 1);
     }

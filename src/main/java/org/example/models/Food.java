@@ -13,10 +13,6 @@ public class Food {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public int getQuantity() {
         return quantity;
     }

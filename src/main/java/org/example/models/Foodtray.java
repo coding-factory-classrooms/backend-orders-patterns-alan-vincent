@@ -7,16 +7,13 @@ public class Foodtray {
     private String description;
     private List<Food> foods;
 
-    public Foodtray() {
+    public Foodtray(String description) {
+        this.description = description;
         this.foods = new ArrayList<>();
     }
 
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public List<Food> getFoods() {

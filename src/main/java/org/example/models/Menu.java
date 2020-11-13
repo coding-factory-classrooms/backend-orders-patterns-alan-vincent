@@ -7,16 +7,13 @@ public class Menu {
     private String title;
     private List<Foodtray> foodtrays;
 
-    public Menu() {
+    public Menu(String title) {
+        this.title = title;
         this.foodtrays = new ArrayList<>();
     }
 
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public List<Foodtray> getFoodtrays() {

@@ -1,0 +1,41 @@
+#parse("base.html")
+#@mainLayout()
+<h1>Order some yummy japanese food</h1>
+<h2>Choose you menu</h2>
+<select id="menus" name="menus">
+    <option default value="none">NONE</option>
+#foreach ($menu im $menus)
+    #foreach ($foodtray in $menu.getFoodtrays())
+        <option value="$menu.getTitle()">$menu.getTitle() - $foodtray.getDescription()</option>
+    #end
+#end
+</select>
+<br />
+
+<br />
+<button type="button" onclick="createOrder()">Order</button>
+
+<script>
+    async function createOrder(){
+        const menuChoose = document.getElementById("menus").value;
+
+        const myHeaders = new Headers();
+
+        const myInit = { method: 'POST',
+            headers: myHeaders,
+            body:   menuChoose,
+            mode: 'cors',
+            cache: 'default' };
+        try {
+            const response = await fetch('/order', myInit);
+            if(response.status > 400)
+                return alert("Error to create order")
+            const data = await response.text();
+
+            window.location.assign("/order/"+data);
+        }catch (e) {
+            console.error(e)
+        }
+    }
+</script>
+#end

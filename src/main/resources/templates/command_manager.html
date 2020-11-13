@@ -1,4 +1,4 @@
-<#parse("base.html")
+#parse("base.html")
 #@mainLayout()
 <h1>Orders Dasboard</h1>
 <a>Refresh</a>
@@ -9,16 +9,41 @@
         <th>ID</th>
         <th>Content</th>
         <th>State</th>
+        <th>Update</th>
     </tr>
     </thead>
     <tbody>
+    #foreach ($order in $orderUsers)
         <tr>
-            #foreach ($order in $ordersClients)
             <td>$velocityCount</td>
-            <td>$order.getCommandFoods().toString()</td>
+            <td>$order.getOrderedMenu()</td>
             <td>$order.getStatus()</td>
-            #end
+            <td>
+                <select id="update_status" name="$velocityCount">
+                    #if ($order.getStatus() == "NEW")
+                    <option selected value="NEW">NEW</option>
+                    #else
+                    <option value="NEW">NEW</option>
+                    #end
+                    #if ($order.getStatus() == "IN_PROGRESS")
+                    <option selected value="IN_PROGRESS">IN_PROGRESS</option>
+                    #else
+                    <option value="IN_PROGRESS">IN_PROGRESS</option>
+                    #end
+                    #if ($order.getStatus() == "FINISHED")
+                    <option selected value="FINISHED">FINISHED</option>
+                    #else
+                    <option value="FINISHED">FINISHED</option>
+                    #end
+                    #if ($order.getStatus() == "CANCELED")
+                    <option selected value="CANCELED">CANCELED</option>
+                    #else
+                    <option value="CANCELED">CANCELED</option>
+                    #end
+                </select>
+            </td>
         </tr>
+        #end
     </tbody>
 </table>
 <h2>History</h2>
@@ -31,13 +56,22 @@
     </tr>
     </thead>
     <tbody>
+    #foreach ($h in $history)
         <tr>
-            #foreach ($h in $history)
             <td>$velocityCount</td>
             <td>NONE</td>
             <td>$h.toString()</td>
-            #end
         </tr>
+    #end
     </tbody>
 </table>
+<script>
+    document.getElementById("update_status").addEventListener("change",update_status_order)
+    function update_status_order(e){
+        const id = parseInt(e.target.getAttribute("name"))-1
+        const newValue = e.target.value
+        console.log(id, newValue);
+        window.location.assign("/manage/update/"+id+"?action="+newValue);
+    }
+</script>
 #end
