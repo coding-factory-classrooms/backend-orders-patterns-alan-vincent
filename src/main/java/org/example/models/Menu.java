@@ -3,7 +3,7 @@ package org.example.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Menu {
+public class Menu implements Cloneable {
     private String title;
     private List<Foodtray> foodtrays;
 
@@ -26,5 +26,15 @@ public class Menu {
 
     public void addFoodtrays(Foodtray foodtray) {
         this.foodtrays.add(foodtray);
+    }
+
+    @Override
+    public Object clone() {
+        try {
+            return (Menu) super.clone();
+        } catch (CloneNotSupportedException e) {
+            System.out.println(e);
+            return null;
+        }
     }
 }

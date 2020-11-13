@@ -6,7 +6,7 @@ import org.example.Controller.ManagerController;
 import org.example.core.Conf;
 import org.example.core.Template;
 import org.example.middlewares.LoggerMiddleware;
-import org.example.models.CommandCenter;
+import org.example.models.OrdersManage;
 import org.example.models.CommandHistory;
 import spark.Spark;
 
@@ -15,11 +15,12 @@ public class App {
         initialize();
 
         CommandHistory history = new CommandHistory();
-        CommandCenter commandCenter = new CommandCenter(history);
+        OrdersManage ordersManage = new OrdersManage(history);
+        history.push((OrdersManage) ordersManage.clone());
 
         HomeController homeController = new HomeController();
-        OrderController orderController = new OrderController(commandCenter);
-        ManagerController managerController = new ManagerController(commandCenter, history);
+        OrderController orderController = new OrderController(ordersManage);
+        ManagerController managerController = new ManagerController(ordersManage, history);
 
         Spark.get("/", (req, res) -> homeController.home(req,res));
 
@@ -28,7 +29,7 @@ public class App {
         Spark.get("/order/:id", (req, res) -> orderController.viewOrder(req,res));
 
         Spark.get("/manage", (req, res) -> managerController.manageOrderCommand(req,res));
-//        Spark.get("/manage/:id", (req, res) -> managerController.manageOneCommand(req,res));
+        Spark.get("/manage/history", (req, res) -> managerController.updateHistory(req,res));
         Spark.get("/manage/update/:id", (req, res) -> managerController.updateCommand(req,res));
     }
 

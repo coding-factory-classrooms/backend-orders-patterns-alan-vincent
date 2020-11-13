@@ -1,10 +1,10 @@
 package org.example.models;
 
 public abstract class Command {
-    public CommandCenter commandCenter;
+    public OrdersManage ordersManage;
 
-    public Command(CommandCenter commandCenter) {
-        this.commandCenter = commandCenter;
+    public Command(OrdersManage ordersManage) {
+        this.ordersManage = ordersManage;
     }
 
     public void undo(){

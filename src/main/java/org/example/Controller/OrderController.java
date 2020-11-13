@@ -2,9 +2,8 @@ package org.example.Controller;
 
 import org.example.Data;
 import org.example.core.Template;
-import org.example.models.CommandCenter;
-import org.example.models.CommandHistory;
-import org.example.models.CommandUser;
+import org.example.models.Order;
+import org.example.models.OrdersManage;
 import org.example.service.OrderService;
 import spark.Request;
 import spark.Response;
@@ -13,10 +12,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class OrderController {
-    private CommandCenter commandCenter;
+    private OrdersManage ordersManage;
 
-    public OrderController(CommandCenter commandCenter) {
-        this.commandCenter = commandCenter;
+    public OrderController(OrdersManage ordersManage) {
+        this.ordersManage = ordersManage;
     }
 
     public String chooseMenuCommand(Request req, Response res){
@@ -31,17 +30,16 @@ public class OrderController {
             return"";
         }
         OrderService orderService = new OrderService();
-        orderService.createNewOrder(commandCenter, req.body());
-        int id = commandCenter.getCommands().size()-1;
+        orderService.createNewOrder(ordersManage, req.body());
+        int id = ordersManage.getCommands().size()-1;
         res.status(200);
         return Integer.toString(id);
     }
 
     public String viewOrder(Request req, Response res){
         String id = req.params(":id");
-        System.out.println(id);
         try {
-            CommandUser order = commandCenter.getCommands().get(Integer.parseInt(id));
+            Order order = ordersManage.getCommands().get(Integer.parseInt(id));
             Map<String, Object> model = new HashMap<>();
             model.put("id", id);
             model.put("order",order);

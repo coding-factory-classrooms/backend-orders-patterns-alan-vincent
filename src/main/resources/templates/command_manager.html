@@ -16,7 +16,7 @@
     #foreach ($order in $orderUsers)
         <tr>
             <td>$velocityCount</td>
-            <td>$order.getOrderedMenu()</td>
+            <td>$order.toString()</td>
             <td>$order.getStatus()</td>
             <td>
                 <select id="update_status" name="$velocityCount">
@@ -35,10 +35,10 @@
                     #else
                     <option value="FINISHED">FINISHED</option>
                     #end
-                    #if ($order.getStatus() == "CANCELED")
-                    <option selected value="CANCELED">CANCELED</option>
+                    #if ($order.getStatus() == "CANCELLED")
+                    <option selected value="CANCELED">CANCELLED</option>
                     #else
-                    <option value="CANCELED">CANCELED</option>
+                    <option value="CANCELED">CANCELLED</option>
                     #end
                 </select>
             </td>
@@ -47,6 +47,13 @@
     </tbody>
 </table>
 <h2>History</h2>
+#if ($currentHistory > 1)
+<a href="/manage/history?action=undo">Undo</a>
+#end
+<br />
+#if ($currentHistory < $history.size())
+<a href="/manage/history?action=redo">Redo</a>
+#end
 <table>
     <thead>
     <tr>
@@ -57,11 +64,19 @@
     </thead>
     <tbody>
     #foreach ($h in $history)
+        #if($velocityCount == $currentHistory)
+        <tr>
+            <td><strong>$velocityCount</strong></td>
+            <td><strong>NONE</strong></td>
+            <td><strong>$h.toString()</strong></td>
+        </tr>
+        #else
         <tr>
             <td>$velocityCount</td>
             <td>NONE</td>
             <td>$h.toString()</td>
         </tr>
+        #end
     #end
     </tbody>
 </table>

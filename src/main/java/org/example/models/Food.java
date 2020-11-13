@@ -1,6 +1,6 @@
 package org.example.models;
 
-public class Food {
+public class Food implements Cloneable {
     private String description;
     private int quantity;
 
@@ -19,5 +19,15 @@ public class Food {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public Object clone() {
+        try {
+            return (Food) super.clone();
+        } catch (CloneNotSupportedException e) {
+            System.out.println(e);
+            return null;
+        }
     }
 }
